@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Where My Soul Belongs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0e1c30; --blue:#1b3558; --sky:#2d5382; --gold:#d9b862; --pale-gold:#e9cf85; --ink:#16253b;
+  --text:#EFE8D6; --muted:#b9c4d4;
+  --serif:'Cormorant Garamond','Libre Baskerville',Georgia,serif;
+  --display:'Playfair Display',Georgia,serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;background:var(--navy)}
+body{
+  background:linear-gradient(180deg,#0e1c30 0%,#17304f 28%,#24477a 58%,#3b6394 100%);
+  color:var(--text);font-family:var(--serif);font-size:clamp(1.2rem,1.1rem + .4vw,1.45rem);
+  line-height:1.8;-webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+a{color:inherit}
+:focus-visible{outline:1px solid var(--pale-gold);outline-offset:4px}
+#motes{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+main,header,.music{position:relative;z-index:2}
+
+/* hero */
+.hero{position:relative;min-height:100vh;min-height:100svh;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;padding:6rem 1.5rem}
+.sun{position:absolute;left:50%;bottom:-38vmin;width:90vmin;height:90vmin;transform:translateX(-50%);border-radius:50%;z-index:1;
+  background:radial-gradient(circle,rgba(233,207,133,.55) 0%,rgba(217,184,98,.28) 35%,rgba(217,184,98,0) 68%);animation:breathe 9s ease-in-out infinite}
+@keyframes breathe{50%{transform:translateX(-50%) scale(1.08);opacity:.8}}
+.hero-text{position:relative;z-index:2;max-width:1000px;opacity:0;animation:rise 2.2s .4s ease forwards;will-change:transform,opacity}
+@keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+.hero h1{font-family:var(--display);font-weight:400;font-size:clamp(2.8rem,9vw,7rem);line-height:1.05;letter-spacing:-.01em}
+.hero p{margin-top:1.4rem;font-style:italic;font-size:clamp(1.15rem,2vw,1.5rem);color:var(--muted)}
+.begin{display:inline-block;margin-top:2.6rem;padding:.85rem 2rem;background:transparent;color:var(--text);border:1px solid var(--pale-gold);
+  font:500 .95rem var(--serif);letter-spacing:.22em;cursor:pointer;transition:background .4s,color .4s}
+.begin:hover,.begin:focus-visible{background:var(--pale-gold);color:var(--ink)}
+
+/* letter */
+.passage{padding:clamp(6rem,13vw,11rem) clamp(1.5rem,6vw,6rem)}
+.block{max-width:36em;position:relative;padding-left:clamp(1.4rem,3vw,2.4rem);border-left:1px solid rgba(233,207,133,.45)}
+.block.right{margin-left:auto;border-left:0;border-right:1px solid rgba(233,207,133,.45);padding-left:0;padding-right:clamp(1.4rem,3vw,2.4rem)}
+.block.mid{margin:0 auto;border:0;padding:0;max-width:30em;text-align:center;
+  font-family:var(--display);font-style:italic;font-size:clamp(1.5rem,3vw,2.3rem);line-height:1.55}
+.wrap{max-width:1100px;margin:0 auto}
+.drop::first-letter{font-family:var(--display);float:left;font-size:4.4em;line-height:.8;padding:.08em .1em 0 0;color:var(--pale-gold)}
+
+/* finale */
+.finale{min-height:100vh;min-height:100svh;display:flex;align-items:center;justify-content:center;text-align:center;padding:8rem 1.5rem;color:var(--ink);
+  background:linear-gradient(180deg,#3b6394 0%,#8e9a8a 32%,#d9b862 72%,#e9cf85 100%)}
+.finale .inner{max-width:40em}
+.finale .answer{font-family:var(--display);font-weight:400;font-size:clamp(2.1rem,5.6vw,4.2rem);line-height:1.2;margin-bottom:3rem}
+.finale .after p+p{margin-top:1.4em}
+.finale .after{font-size:clamp(1.25rem,1.1rem + .5vw,1.55rem);font-weight:500}
+.finale a.top{display:inline-block;margin-top:3.5rem;font-style:italic;color:var(--ink);text-decoration:none;border-bottom:1px solid var(--ink);padding-bottom:2px;opacity:.8;transition:opacity .3s}
+.finale a.top:hover{opacity:1}
+
+/* music control */
+.music{position:fixed;right:clamp(1rem,3vw,2rem);bottom:clamp(1rem,3vw,2rem);z-index:45;display:flex;align-items:center;gap:.8rem;
+  background:rgba(14,28,48,.82);backdrop-filter:blur(6px);color:var(--text);border:1px solid rgba(233,207,133,.45);
+  padding:.6rem 1.1rem;font:italic 1rem var(--serif);cursor:pointer;transition:background .3s,color .3s}
+.music:hover{background:var(--pale-gold);color:var(--ink)}
+.bars{display:flex;align-items:flex-end;gap:2px;height:14px}
+.bars i{width:2px;height:4px;background:currentColor;display:block}
+.music.playing .bars i{animation:eq 1.1s ease-in-out infinite}
+.music.playing .bars i:nth-child(2){animation-delay:-.4s}.music.playing .bars i:nth-child(3){animation-delay:-.8s}
+@keyframes eq{0%,100%{height:3px}50%{height:14px}}
+
+/* reveal */
+.fade{opacity:0;transform:translateY(18px);transition:opacity 1.4s ease,transform 1.4s ease}
+.fade.in{opacity:1;transform:none}
+.fade.d1{transition-delay:.2s}.fade.d2{transition-delay:1.8s}
+@media (prefers-reduced-motion:reduce){
+  .fade{opacity:1;transform:none;transition:none}.hero-text{animation:none;opacity:1}.sun{animation:none}html{scroll-behavior:auto}
+}
+@media (max-width:900px){
+  .block.right{margin-left:0;border-right:0;border-left:1px solid rgba(233,207,133,.45);padding:0 0 0 1.4rem}
+  .music span.label{display:none}
+}
+</style>
+</head>
+<body>
+<canvas id="motes" aria-hidden="true"></canvas>
+
+<header class="hero" id="top">
+  <div class="sun"></div>
+  <div class="hero-text" id="heroText">
+    <h1>Where My Soul Belongs</h1>
+    <p>Some things are simply meant to happen.</p>
+    <button class="begin" id="begin" type="button">BEGIN READING</button>
+  </div>
+</header>
+
+<main>
+  <section class="passage" id="soul">
+    <div class="wrap"><div class="block fade">
+      <p class="drop">The soul is not trapped on the human body but is contained into something else. I believe that humans live their lives by doing the things that makes them happy and perhaps that object becomes the container of their soul. Just like how the guitarist feels as though they can not live without playing music with his guitar and the artist who can not stop painting he finds attractive.</p>
+    </div></div>
+  </section>
+
+  <section class="passage" id="questions">
+    <div class="wrap"><div class="block right fade">
+      <p>And this leaves me pondering: What are the limitations of that container can be? How could the human soul fit within the thinnest brush? and if the human soul can be contained into something we love, would it be able to survive into another living being? Just like how some of us choose animals as the medium through which we express our anima.</p>
+    </div></div>
+  </section>
+
+  <section class="passage" id="belonging">
+    <div class="wrap"><div class="block mid fade">
+      <p>Perhaps the soul does not care about the form of that container. But seeks where it feels it belonged.</p>
+    </div></div>
+  </section>
+
+  <section class="finale" id="arrival">
+    <div class="inner">
+      <h2 class="answer fade">And somehow my soul found its way to you.</h2>
+      <div class="after fade d2">
+        <p>Don't ask how, nor ask why.</p>
+        <p>Some things simply happen because they are destined to.</p>
+      </div>
+      <a class="top fade d2" href="#top">Return to the beginning</a>
+    </div>
+  </section>
+</main>
+
+<!-- Put your copy of the song in the same folder as this file, named before-spring-ends.mp3 -->
+<audio id="song" src="before-spring-ends.mp3" loop preload="auto"></audio>
+<button class="music" id="music" type="button" aria-pressed="false" aria-label="Play background music">
+  <span class="bars"><i></i><i></i><i></i></span>
+  <span class="label" id="musicLabel">Before Spring Ends</span>
+</button>
+
+<script>
+(function(){
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var heroText=document.getElementById('heroText');
+
+  /* hero drift */
+  function onScroll(){
+    var y=window.scrollY;
+    if(!reduce&&y<window.innerHeight){heroText.style.transform='translateY('+(y*.22)+'px)';heroText.style.opacity=Math.max(0,1-y/(window.innerHeight*.8))}
+  }
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+
+  /* reveal */
+  var items=document.querySelectorAll('.fade');
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.15,rootMargin:'0px 0px -6% 0px'});
+    items.forEach(function(el){io.observe(el)});
+  }else{items.forEach(function(el){el.classList.add('in')})}
+
+  /* drifting golden motes that gently part around the cursor */
+  var cv=document.getElementById('motes'),cx=cv.getContext('2d'),W,H,dpr,motes=[],mouse={x:-999,y:-999};
+  function size(){
+    dpr=Math.min(window.devicePixelRatio||1,2);W=window.innerWidth;H=window.innerHeight;
+    cv.width=W*dpr;cv.height=H*dpr;cx.setTransform(dpr,0,0,dpr,0,0);
+    var n=Math.round(Math.min(70,W*H/16000));motes=[];
+    for(var i=0;i<n;i++)motes.push(make(true));
+  }
+  function make(any){return{x:Math.random()*W,y:any?Math.random()*H:H+10,r:Math.random()*1.8+.6,v:Math.random()*.35+.12,ph:Math.random()*6.28,sw:Math.random()*.6+.2,a:Math.random()*.5+.25,vx:0,vy:0}}
+  window.addEventListener('resize',size);
+  window.addEventListener('mousemove',function(e){mouse.x=e.clientX;mouse.y=e.clientY});
+  window.addEventListener('touchmove',function(e){var t=e.touches[0];mouse.x=t.clientX;mouse.y=t.clientY},{passive:true});
+  var t0=0;
+  function frame(t){
+    cx.clearRect(0,0,W,H);
+    for(var i=0;i<motes.length;i++){
+      var m=motes[i];
+      var dx=m.x-mouse.x,dy=m.y-mouse.y,d=Math.sqrt(dx*dx+dy*dy);
+      if(d<130&&d>0){var f=(130-d)/130*.6;m.vx+=dx/d*f;m.vy+=dy/d*f}
+      m.vx*=.94;m.vy*=.94;
+      m.y-=m.v;m.x+=Math.sin(t/1800*m.sw+m.ph)*.25+m.vx;m.y+=m.vy;
+      if(m.y<-10||m.x<-20||m.x>W+20){motes[i]=make(false);continue}
+      var tw=.65+.35*Math.sin(t/900+m.ph);
+      cx.beginPath();cx.fillStyle='rgba(240,215,140,'+(m.a*tw).toFixed(3)+')';
+      cx.arc(m.x,m.y,m.r,0,6.283);cx.fill();
+    }
+    if(!reduce)requestAnimationFrame(frame);
+  }
+  size();
+  if(reduce){frame(0)}else{requestAnimationFrame(frame)}
+
+  /* music: before-spring-ends.mp3 sits in the same folder as this file */
+  var song=document.getElementById('song'),btn=document.getElementById('music'),label=document.getElementById('musicLabel');
+  var userStopped=false,fadeTimer;
+  function fadeTo(v,ms){
+    clearInterval(fadeTimer);var s=song.volume,st=0,steps=20;
+    fadeTimer=setInterval(function(){st++;song.volume=Math.max(0,Math.min(1,s+(v-s)*st/steps));
+      if(st>=steps){clearInterval(fadeTimer);if(v===0)song.pause()}},ms/steps);
+  }
+  function setState(on){btn.classList.toggle('playing',on);btn.setAttribute('aria-pressed',on);
+    btn.setAttribute('aria-label',on?'Pause background music':'Play background music')}
+  function play(){
+    song.volume=0;
+    var p=song.play();
+    if(p&&p.then)p.then(function(){setState(true);fadeTo(.45,3000);disarm()}).catch(function(){arm()});
+  }
+  /* Browsers block sound until the visitor interacts, so if autoplay is refused,
+     the music starts on the first click, tap or key press instead. */
+  var evs=['pointerdown','keydown','touchend'];
+  function onFirst(e){if(e&&e.target&&btn.contains(e.target)){arm();return}if(song.paused&&!userStopped)play()}
+  function arm(){evs.forEach(function(e){window.addEventListener(e,onFirst,{once:true})})}
+  function disarm(){evs.forEach(function(e){window.removeEventListener(e,onFirst)})}
+  window.addEventListener('load',function(){play()});
+  btn.addEventListener('click',function(){
+    if(song.paused){userStopped=false;play()}else{userStopped=true;setState(false);fadeTo(0,800)}
+  });
+  song.addEventListener('error',function(){
+    label.textContent='Music file not found';btn.title='Put before-spring-ends.mp3 in the same folder as this file';setState(false);
+  });
+  document.getElementById('begin').addEventListener('click',function(){
+    if(song.paused&&!userStopped)play();
+    document.getElementById('soul').scrollIntoView({behavior:reduce?'auto':'smooth'});
+  });
+})();
+</script>
+</body>
+</html>
